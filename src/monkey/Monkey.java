@@ -1,12 +1,17 @@
 package monkey;
 
+import org.apache.log4j.Logger;
+
+import controler.Controller;
+
 public class Monkey extends Thread {
 	
 	int time;
 	Direction direction;
+	static Logger logger = Logger.getLogger(Controller.class);
 	
 	public Monkey() {
-		this.time = 5000;
+		this.time = 4000;
 		this.direction = Direction.randomDirection();
 	}
 
@@ -29,11 +34,11 @@ public class Monkey extends Thread {
 	@Override
     public void run() {
 		 try {
-             System.out.println("EXECUTING " + this.direction.toString() + " MONKEY");
+			 logger.info("EXECUTING " + this.direction.toString() + " MONKEY");
              sleep(this.time);
-             System.out.println(this.direction.toString() + " MONKEY EXECUTED");
+             logger.info(this.direction.toString() + " MONKEY EXECUTED");
          } catch (InterruptedException ex) {
-        	 System.out.println(ex);
+        	 logger.info(ex);
          }
     }
 }
