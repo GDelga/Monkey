@@ -13,18 +13,29 @@ public class Controller extends Thread{
 	private static final MonkeyCreator monkeyCreator = new MonkeyCreator();
 	private Queue<Monkey> crossingMonkeys;
 	private Direction direction;
+	private Boolean started;
 	static Logger logger = Logger.getLogger(Controller.class);
 	
 	public Controller() {
-		this.direction = Direction.randomDirection(); //Random direction by default
 		this.crossingMonkeys = new LinkedList<Monkey>();
+		this.started = false;
 	}
 	
 	
 	public void controlPassage() {
 		monkeyCreator.start();
 		logger.info("MONKEY CREATOR STARTED");
+		this.decideDirection();
+		logger.info("STARTING DIRECTION DECIDED");
 		while(true) {
+			if (this.direction == Direction.EASTWARD && monkeyCreator.isEmptyEast() && !monkeyCreator.isEmptyWest()
+					&& this.crossingMonkeys.isEmpty()) {
+				this.direction = Direction.WESTWARD;
+			}
+			else if (this.direction == Direction.WESTWARD && !monkeyCreator.isEmptyEast() && monkeyCreator.isEmptyWest()
+					&& this.crossingMonkeys.isEmpty()) {
+				this.direction = Direction.EASTWARD;
+			}
 			if (this.direction == Direction.EASTWARD && !monkeyCreator.isEmptyEast() && monkeyCreator.isEmptyWest()) {
 				logger.info("STARTING EASTWARD CROSSING");
 				this.executeEastward();
@@ -90,6 +101,20 @@ public class Controller extends Thread{
 			if (!this.crossingMonkeys.peek().isAlive()) {
 				this.crossingMonkeys.poll();
 			}
+		}
+	}
+	
+	private void decideDirection() {
+		while(this.direction == null) {
+			if (!monkeyCreator.isEmptyWest()) {
+				this.direction = Direction.WESTWARD;
+				this.started = true;
+			}
+			else if (!monkeyCreator.isEmptyEast()) {
+				this.direction = Direction.EASTWARD;
+				this.started = true;
+			}
+			logger.info("DECIDING DIRECTION");
 		}
 	}
 
