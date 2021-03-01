@@ -47,12 +47,6 @@ public class Controller extends Thread{
 				this.direction = Direction.EASTWARD;
 				this.executeEastward();
 			}
-			else if (monkeyCreator.isEmptyEast() && monkeyCreator.isEmptyWest()) {
-				logger.info("WAITING FOR MONKEYS");
-			}
-			else {
-				logger.info("DEADLOCK");
-			}
 		}
 		
 	}
