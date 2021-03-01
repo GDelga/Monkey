@@ -23,24 +23,35 @@ public class Controller extends Thread{
 	
 	public void controlPassage() {
 		monkeyCreator.start();
+		logger.info("MONKEY CREATOR STARTED");
 		while(true) {
 			if (this.direction == Direction.EASTWARD && !monkeyCreator.isEmptyEast() && monkeyCreator.isEmptyWest()) {
+				logger.info("STARTING EASTWARD CROSSING");
 				this.executeEastward();
 				this.hasMonkeyCrossed();
 			}
 			else if (this.direction == Direction.WESTWARD && !monkeyCreator.isEmptyWest() && monkeyCreator.isEmptyEast()) {
+				logger.info("STARTING WESTWARD CROSSING");
 				this.executeWestward();
 				this.hasMonkeyCrossed();
 			}
 			else if (this.direction == Direction.EASTWARD && !monkeyCreator.isEmptyWest()) {
+				logger.info("WESTWARD MONKEY IS WAITING");
 				this.waitUntilRopeIsFree();
 				this.direction = Direction.WESTWARD;
 				this.executeWestward();
 			}
 			else if (this.direction == Direction.WESTWARD && !monkeyCreator.isEmptyEast()) {
+				logger.info("EASTWARD MONKEY IS WAITING");
 				this.waitUntilRopeIsFree();
 				this.direction = Direction.EASTWARD;
 				this.executeEastward();
+			}
+			else if (monkeyCreator.isEmptyEast() && monkeyCreator.isEmptyWest()) {
+				logger.info("WAITING FOR MONKEYS");
+			}
+			else {
+				logger.info("DEADLOCK");
 			}
 		}
 		
