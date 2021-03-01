@@ -28,14 +28,6 @@ public class Controller extends Thread{
 		this.decideDirection();
 		logger.info("STARTING DIRECTION DECIDED");
 		while(true) {
-			if (this.direction == Direction.EASTWARD && monkeyCreator.isEmptyEast() && !monkeyCreator.isEmptyWest()
-					&& this.crossingMonkeys.isEmpty()) {
-				this.direction = Direction.WESTWARD;
-			}
-			else if (this.direction == Direction.WESTWARD && !monkeyCreator.isEmptyEast() && monkeyCreator.isEmptyWest()
-					&& this.crossingMonkeys.isEmpty()) {
-				this.direction = Direction.EASTWARD;
-			}
 			if (this.direction == Direction.EASTWARD && !monkeyCreator.isEmptyEast() && monkeyCreator.isEmptyWest()) {
 				logger.info("STARTING EASTWARD CROSSING");
 				this.executeEastward();
