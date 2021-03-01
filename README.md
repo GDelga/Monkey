@@ -1,8 +1,9 @@
 # Monkey
 
-El problema ha sido desarrollado en java 15 a través de Eclipse, para ejecutarlo habria que descargarse el repositorio abrirlo en Eclipse o similar y ejecutar la clase Main.
+The problem has been developed in Java 15 with Eclipse, for the execution download the repository and execute the Main class with Eclipse 
+or similar.
 
-Una salida normal del ejercicio sería la siguiente:
+A normal execution example:
 
 START
 
